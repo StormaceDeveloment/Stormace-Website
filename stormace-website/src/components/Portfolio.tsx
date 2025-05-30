@@ -1,0 +1,82 @@
+import React from 'react';
+import CS2AnalyzerImage from '../assets/CS2Analyzer.png';
+
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  github: string;
+  demo?: string;
+};
+
+const projects: Project[] = [
+  {
+    title: 'CS2 Analyzer AI',
+    description: 'AI tool that provides feedback on CS:GO gameplay using video input and YOLO models.',
+    image: CS2AnalyzerImage,
+    github: 'https://github.com/yourprofile/cs2-analyzer',
+    demo: 'https://demo-site.com/cs2',
+  },
+  {
+    title: 'GPU Task Network',
+    description: 'Distributed rendering system where users contribute GPU power for image generation.',
+    image: '/assets/project2.jpg',
+    github: 'https://github.com/yourprofile/gpu-network',
+  },
+  {
+    title: 'Blazor Chat App',
+    description: 'Omegle-style chat app using WebRTC, SignalR, and Blazor Server.',
+    image: '/assets/project3.jpg',
+    github: 'https://github.com/yourprofile/blazor-chat',
+  },
+];
+
+const Portfolio: React.FC = () => {
+  return (
+    <section id="portfolio" className="py-24 px-6 bg-white text-gray-800">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-4xl font-bold mb-4">My Projects</h2>
+        <p className="text-gray-600 mb-12">Here are a few things I've built recently.</p>
+
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-gray-100 rounded-lg shadow-md hover:shadow-xl transition p-4 flex flex-col"
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                className="rounded-md h-48 w-full object-cover mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+              <p className="text-gray-600 text-sm flex-grow">{project.description}</p>
+              <div className="flex gap-4 mt-4">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  GitHub
+                </a>
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Portfolio;
