@@ -4,32 +4,31 @@ type Testimonial = {
   name: string;
   role: string;
   quote: string;
+  rating: number;
   avatar?: string;
 };
 
 const testimonials: Testimonial[] = [
   {
-    name: 'Samantha Jones',
-    role: 'CEO at FreshTech',
-    quote:
-      "Wesley's ability to turn complex specs into clean, scalable solutions blew us away. He’s our go-to developer.",
-    avatar: '/assets/client1.jpg',
+    name: "Private User",
+    role: "Indonesia",
+    quote: "Great professional of seller, recommend to solve the problems",
+    rating: 5
   },
   {
-    name: 'David Kim',
-    role: 'CTO at Nexus Labs',
-    quote:
-      'Excellent communication and outstanding technical skill. He delivered everything ahead of schedule.',
-    avatar: '/assets/client2.jpg',
+    name: "Private User",
+    role: "Philippines",
+    quote: "Workmanship was great. He went beyond what he was asked to do which is great. Very accommodating and works fast. I really recommend him and for sure will work with him again. Thank you!",
+    rating: 5
   },
   {
-    name: 'Laura Smith',
-    role: 'Product Designer at BrightPath',
-    quote:
-      'A great team player who writes elegant code and has a keen eye for design. Highly recommended!',
-    avatar: '/assets/client3.jpg',
-  },
+    name: "Private User",
+    role: "India",
+    quote: "Delivered as promised, Awesome knowledge about multiplayer stuff like matchmaking. He is also good in UE. I will like to work with him again. Only disadvantage for me was our timezone other than that everything is fine.",
+    rating: 5
+  }
 ];
+
 
 const Testimonials: React.FC = () => {
   return (
@@ -44,10 +43,11 @@ const Testimonials: React.FC = () => {
           {testimonials.map((t, index) => (
             <div
               key={index}
-              className="bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition"
+              className="bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col justify-between h-full"
+              style={{ minHeight: 300 }}
             >
-              <p className="text-sm text-gray-600 mb-6">“{t.quote}”</p>
-              <div className="flex items-center gap-4">
+              <p className="text-sm text-gray-600 mb-6 text-left flex-1">“{t.quote}”</p>
+              <div className="flex items-end justify-start gap-4 mt-auto">
                 {t.avatar && (
                   <img
                     src={t.avatar}
@@ -58,6 +58,18 @@ const Testimonials: React.FC = () => {
                 <div className="text-left">
                   <div className="font-semibold">{t.name}</div>
                   <div className="text-xs text-gray-500">{t.role}</div>
+                  <div className="flex items-center mt-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg
+                        key={i}
+                        className={`w-4 h-4 ${i < t.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

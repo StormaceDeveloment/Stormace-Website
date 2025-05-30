@@ -1,11 +1,13 @@
 import React from 'react';
 import CS2AnalyzerImage from '../assets/CS2Analyzer.png';
+import BlazorImage from '../assets/Blazor.png'
+import KinemationImage from '../assets/scr_6.png';
 
 type Project = {
   title: string;
   description: string;
   image: string;
-  github: string;
+  github?: string;
   demo?: string;
 };
 
@@ -14,20 +16,17 @@ const projects: Project[] = [
     title: 'CS2 Analyzer AI',
     description: 'AI tool that provides feedback on CS:GO gameplay using video input and YOLO models.',
     image: CS2AnalyzerImage,
-    github: 'https://github.com/yourprofile/cs2-analyzer',
-    demo: 'https://demo-site.com/cs2',
-  },
-  {
-    title: 'GPU Task Network',
-    description: 'Distributed rendering system where users contribute GPU power for image generation.',
-    image: '/assets/project2.jpg',
-    github: 'https://github.com/yourprofile/gpu-network',
   },
   {
     title: 'Blazor Chat App',
     description: 'Omegle-style chat app using WebRTC, SignalR, and Blazor Server.',
-    image: '/assets/project3.jpg',
-    github: 'https://github.com/yourprofile/blazor-chat',
+    image: BlazorImage,
+  },
+  {
+    title: 'Digital webshop',
+    description: 'A webshop made in Blazor and .NET Framework with Stripe as the backbone for payments and an SQL database for data storage.',
+    image: KinemationImage,
+    demo: 'https://kinemation.com',
   },
 ];
 
@@ -52,14 +51,16 @@ const Portfolio: React.FC = () => {
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-600 text-sm flex-grow">{project.description}</p>
               <div className="flex gap-4 mt-4">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  GitHub
-                </a>
+                {project.github &&
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    GitHub
+                  </a>
+                }
                 {project.demo && (
                   <a
                     href={project.demo}
