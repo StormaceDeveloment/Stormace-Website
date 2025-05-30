@@ -29,10 +29,10 @@ const Hero: React.FC = () => {
             </a>
         </div>
         <div className="flex justify-center gap-6 text-2xl text-gray-700">
-          <a href="https://github.com/yourprofile" target="_blank" rel="noreferrer">
+          <a href="https://github.com/StormaceDeveloment" target="_blank" rel="noreferrer">
             <FaGithub className="hover:text-black transition" />
           </a>
-          <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noreferrer">
+          <a href="https://linkedin.com/in/wesley-coomans-9458a9177/" target="_blank" rel="noreferrer">
             <FaLinkedin className="hover:text-blue-700 transition" />
           </a>
         </div>
