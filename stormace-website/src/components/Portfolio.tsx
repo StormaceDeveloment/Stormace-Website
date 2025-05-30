@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import CS2AnalyzerImage from '../assets/CS2Analyzer.png';
 import BlazorImage from '../assets/Blazor.png'
 import KinemationImage from '../assets/scr_6.png';
@@ -31,17 +31,44 @@ const projects: Project[] = [
 ];
 
 const Portfolio: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect(); // Stop observing after first trigger
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="portfolio" className="py-24 px-6 bg-white text-gray-800">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center" ref={sectionRef}>
         <h2 className="text-4xl font-bold mb-4">My Projects</h2>
-        <p className="text-gray-600 mb-12">Here are a few things I've built recently.</p>
-
+        <p className="text-gray-600 mb-4">
+          I love building projects that solve real problems and push the boundaries of what’s possible with modern web technologies.
+        </p>
+        <p className="text-gray-500 mb-12">
+          Here are a few things I've built recently. Each project is a unique challenge and a chance to learn something new.
+        </p>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="bg-gray-100 rounded-lg shadow-md hover:shadow-xl transition p-4 flex flex-col"
+              className={`bg-gray-100 rounded-lg shadow-md hover:shadow-2xl hover:scale-105 transition transform duration-300 flex flex-col ${
+                inView ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+              }`}
+              style={{
+                animationDelay: `${0.1 + index * 0.15}s`,
+                animationFillMode: 'both',
+              }}
             >
               <img
                 src={project.image}

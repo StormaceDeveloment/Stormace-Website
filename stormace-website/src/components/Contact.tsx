@@ -7,13 +7,6 @@ const Contact: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Send the form data via EmailJS, Formspree, or your API
-    alert('Message sent (not really – you need to hook this up)');
-    setForm({ name: '', email: '', message: '' });
-  };
-
   return (
     <section id="contact" className="py-24 bg-gray-50 px-6 text-gray-800">
       <div className="max-w-2xl mx-auto text-center">
@@ -22,7 +15,11 @@ const Contact: React.FC = () => {
           Have a project in mind or want to work together? Fill out the form below or send me an email.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6 text-left">
+        <form
+          action="https://formspree.io/f/xldnrnje"
+          method="POST"
+          className="space-y-6 text-left"
+        >
           <input
             type="text"
             name="name"

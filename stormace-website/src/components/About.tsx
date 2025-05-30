@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import profileImg from '../assets/profile.jpeg';
 
+const techStack = [
+  'React',
+  'TypeScript',
+  'Tailwind CSS',
+  '.NET',
+  'SQL Server',
+  'Blazor',
+];
+
 const About: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect(); // Stop observing after first trigger
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="about" className="py-24 bg-white text-gray-800 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12">
+      <div ref={sectionRef} className="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12">
         {/* Profile Image */}
         <div className="flex justify-center">
           <img
@@ -22,12 +48,20 @@ const About: React.FC = () => {
           </p>
           <h3 className="text-xl font-semibold mb-2">Tech Stack:</h3>
           <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-gray-700">
-            <li className="bg-gray-100 px-3 py-2 rounded">React</li>
-            <li className="bg-gray-100 px-3 py-2 rounded">TypeScript</li>
-            <li className="bg-gray-100 px-3 py-2 rounded">Tailwind CSS</li>
-            <li className="bg-gray-100 px-3 py-2 rounded">.NET</li>
-            <li className="bg-gray-100 px-3 py-2 rounded">SQL Server</li>
-            <li className="bg-gray-100 px-3 py-2 rounded">Blazor</li>
+            {techStack.map((tech, i) => (
+              <li
+                key={tech}
+                className={`bg-gray-100 px-3 py-2 rounded transition-all duration-700 ${
+                  inView ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+                }`}
+                style={{
+                  animationDelay: `${0.1 + i * 0.1}s`,
+                  animationFillMode: 'both',
+                }}
+              >
+                {tech}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

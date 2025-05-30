@@ -15,3 +15,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Animated gradient background */
+@keyframes gradient-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-move 8s ease-in-out infinite;
+}
+
+/* Fade-in-up animation */
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(40px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+.animate-fade-in-up {
+  animation: fade-in-up 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.animate-fade-in-up.delay-200 {
+  animation-delay: 0.2s;
+}
+
+/* Floating icons */
+@keyframes float {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+}
+.animate-float {
+  animation: float 2.5s ease-in-out infinite;
+}
+.animate-float.delay-200 {
+  animation-delay: 0.2s;
+}
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 type Testimonial = {
   name: string;
@@ -29,11 +29,27 @@ const testimonials: Testimonial[] = [
   }
 ];
 
-
 const Testimonials: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect(); // Stop observing after first trigger
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="py-24 bg-white px-6 text-gray-800" id="testimonials">
-      <div className="max-w-5xl mx-auto text-center">
+      <div className="max-w-5xl mx-auto text-center" ref={sectionRef}>
         <h2 className="text-4xl font-bold mb-4">Testimonials</h2>
         <p className="text-gray-600 mb-12">
           Hear what my past clients and colleagues have to say.
@@ -43,8 +59,14 @@ const Testimonials: React.FC = () => {
           {testimonials.map((t, index) => (
             <div
               key={index}
-              className="bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition flex flex-col justify-between h-full"
-              style={{ minHeight: 300 }}
+              className={`bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition transform duration-300 flex flex-col justify-between h-full ${
+                inView ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+              }`}
+              style={{
+                minHeight: 300,
+                animationDelay: `${0.1 + index * 0.15}s`,
+                animationFillMode: 'both',
+              }}
             >
               <p className="text-sm text-gray-600 mb-6 text-left flex-1">“{t.quote}”</p>
               <div className="flex items-end justify-start gap-4 mt-auto">
